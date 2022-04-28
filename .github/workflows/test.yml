@@ -36,16 +36,18 @@ jobs:
         include:
           - os: 'macos-latest'
             python-version: '3.7'
+    env:
+      PYTEST_ADDOPTS: --cov --color
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ github.event.inputs.rose_ref || github.sha }}
           path: rose
 
       - name: Configure Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -98,8 +100,11 @@ jobs:
       - name: Install Rose
         working-directory: rose
         run: |
+          echo "[command]pip install rose"
           pip install ."[all]"
+          echo "[command]pip install cylc-rose"
           pip install git+https://github.com/cylc/cylc-rose.git
+          echo "[command]yarn install"
           yarn install
 
       - name: Checkout FCM
@@ -174,7 +179,7 @@ jobs:
           cylc scan --state=all --color=never
           etc/bin/rose-test-battery -j 1 -v --state=save,failed
 
-      - name: Upload
+      - name: Upload artifact
         if: failure() && steps.functest.outcome == 'failure'
         uses: actions/upload-artifact@v2
         with:
@@ -186,12 +191,12 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ github.event.inputs.rose_ref || github.sha }}
 
       - name: Configure Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: 3.7
 

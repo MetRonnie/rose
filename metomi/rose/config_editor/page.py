@@ -1338,8 +1338,7 @@ class ConfigPage(Gtk.Box):
                 error_button = metomi.rose.gtk.util.CustomButton(
                     stock_id=Gtk.STOCK_DIALOG_WARNING,
                     as_tool=True,
-                    tip_text=metomi.rose.config_editor.
-                    ERROR_ORPHAN_SECTION_TIP,
+                    tip_text=metomi.rose.config_editor.ERROR_ORPHAN_SECTION_TIP,  # noqa: E501
                 )
                 error_label = Gtk.Label()
                 info = metomi.rose.config_editor.ERROR_ORPHAN_SECTION.format(

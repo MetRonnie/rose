@@ -620,7 +620,7 @@ class MainMenuHandler(object):
             )
         if error_count > 0:
             msg = (
-                metomi.rose.config_editor.EVENT_MACRO_VALIDATE_RULE_PROBLEMS_FOUND
+                metomi.rose.config_editor.EVENT_MACRO_VALIDATE_RULE_PROBLEMS_FOUND  # noqa: E501
             )
             info_text = msg.format(error_count)
             kind = self.reporter.KIND_ERR

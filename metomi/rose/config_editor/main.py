@@ -1368,7 +1368,7 @@ class MainController(object):
                         metomi.rose.config_editor.ERROR_SAVE_BLANK.format(
                             short_config_name, page_address
                         ),
-                        title=metomi.rose.config_editor.ERROR_SAVE_TITLE.format(
+                        title=metomi.rose.config_editor.ERROR_SAVE_TITLE.format(  # noqa: E501
                             short_config_name
                         ),
                         modal=False,
@@ -1397,7 +1397,7 @@ class MainController(object):
                         None,
                     )
                     dialog.set_markup(
-                        metomi.rose.config_editor.WARNING_ERRORS_FOUND_ON_SAVE.format(
+                        metomi.rose.config_editor.WARNING_ERRORS_FOUND_ON_SAVE.format(  # noqa: E501
                             short_config_name
                         )
                     )

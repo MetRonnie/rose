@@ -20,7 +20,6 @@
 """Miscellaneous gtk mini-applications."""
 
 import multiprocessing
-from subprocess import check_output
 
 from metomi.rose.gtk.dialog import (
     DialogProcess,
@@ -29,8 +28,6 @@ from metomi.rose.gtk.dialog import (
 )
 from metomi.rose.opt_parse import RoseOptionParser
 
-# from metomi.rose.suite_engine_procs.cylc import CylcProcessor
-# from metomi.rose.suite_run import SuiteRunner
 from metomi.rose.reporter import Reporter, ReporterContextQueue
 
 

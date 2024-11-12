@@ -30,14 +30,12 @@ import time
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk
 from gi.repository import GObject
 from gi.repository import Pango
 
 import metomi.rose.gtk.util
 import metomi.rose.popen
-
-# GObject.threads_init()
 
 
 class SplashScreen(Gtk.Window):

@@ -27,7 +27,7 @@ import metomi.rose.config
 from functools import cmp_to_key
 
 
-class FormatsChooserValueWidget(Gtk.HBox):
+class FormatsChooserValueWidget(Gtk.Box):
 
     """This class allows the addition of section names to a variable value."""
 

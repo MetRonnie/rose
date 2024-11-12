@@ -31,7 +31,7 @@ import metomi.rose.config_editor.plugin.um.widget.stash_util as stash_util
 
 from functools import cmp_to_key
 
-class AddStashDiagnosticsPanelv1(Gtk.VBox):
+class AddStashDiagnosticsPanelv1(Gtk.Box):
 
     """Display a grouped set of stash requests to add."""
 

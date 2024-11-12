@@ -31,7 +31,7 @@ import metomi.rose.gtk.util
 from functools import cmp_to_key
 
 
-class BaseSummaryDataPanel(Gtk.VBox):
+class BaseSummaryDataPanel(Gtk.Box):
 
     """A base class for summarising data across many namespaces.
 

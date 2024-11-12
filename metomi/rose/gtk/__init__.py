@@ -2,7 +2,7 @@ try:
     import gi
 
     gi.require_version("Gtk", "3.0")
-    from gi.repository import Gtk
+    from gi.repository import Gtk  # noqa: F401
 except (ImportError, RuntimeError, AssertionError):
     INTERACTIVE_ENABLED = False
 else:

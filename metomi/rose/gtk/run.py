@@ -22,8 +22,13 @@
 import multiprocessing
 from subprocess import check_output
 
-from metomi.rose.gtk.dialog import DialogProcess, run_dialog, DIALOG_TYPE_WARNING
+from metomi.rose.gtk.dialog import (
+    DialogProcess,
+    run_dialog,
+    DIALOG_TYPE_WARNING,
+)
 from metomi.rose.opt_parse import RoseOptionParser
+
 # from metomi.rose.suite_engine_procs.cylc import CylcProcessor
 # from metomi.rose.suite_run import SuiteRunner
 from metomi.rose.reporter import Reporter, ReporterContextQueue
@@ -36,19 +41,20 @@ def run_suite(*args):
     verbosity = Reporter.VV
     out_ctx = ReporterContextQueue(Reporter.KIND_OUT, verbosity, queue=queue)
     err_ctx = ReporterContextQueue(Reporter.KIND_ERR, verbosity, queue=queue)
-    event_handler = Reporter(contexts={"stdout": out_ctx, "stderr": err_ctx},
-                             raise_on_exc=True)
+    event_handler = Reporter(
+        contexts={"stdout": out_ctx, "stderr": err_ctx}, raise_on_exc=True
+    )
 
     # Parse arguments
     suite_runner = SuiteRunner(event_handler=event_handler)
 
     # Don't use rose-suite run if Cylc Version is 8.*:
-    if suite_runner.suite_engine_proc.get_version()[0] == '8':
+    if suite_runner.suite_engine_proc.get_version()[0] == "8":
         run_dialog(
             DIALOG_TYPE_WARNING,
-            '`rose suite-run` does not work with Cylc 8 workflows: '
-            'Use `cylc install`.',
-            'Cylc Version == 8'
+            "`rose suite-run` does not work with Cylc 8 workflows: "
+            "Use `cylc install`.",
+            "Cylc Version == 8",
         )
         return None
 
@@ -61,8 +67,10 @@ def run_suite(*args):
     opts, args = opt_parse.parse_args(list(args))
 
     # Invoke the command with a GTK dialog
-    dialog_process = DialogProcess([suite_runner, opts, args],
-                                   description=description,
-                                   modal=False,
-                                   event_queue=queue)
+    dialog_process = DialogProcess(
+        [suite_runner, opts, args],
+        description=description,
+        modal=False,
+        event_queue=queue,
+    )
     return dialog_process.run()

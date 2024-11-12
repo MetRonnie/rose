@@ -658,7 +658,7 @@ def get_hyperlink_label(text, search_func=lambda i: False):
         label.set_text(text)
     else:
         label.connect(
-            "activate-link", lambda l, u: handle_link(u, search_func)
+            "activate-link", lambda _, u: handle_link(u, search_func)
         )
         text = REC_HYPERLINK_ID_OR_URL.sub(MARKUP_URL_HTML, text)
         label.set_markup(text)

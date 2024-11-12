@@ -667,13 +667,13 @@ def run_choices_dialog(text, choices, title=None):
     if len(choices) < 5:
         for i, choice in enumerate(choices):
             group = None
+            radio_button = Gtk.RadioButton(
+                group, label=choice, use_underline=False
+            )
             if i > 0:
                 group = radio_button
             if i == 1:
                 radio_button.set_active(True)
-            radio_button = Gtk.RadioButton(
-                group, label=choice, use_underline=False
-            )
             dialog.vbox.pack_start(
                 radio_button, expand=False, fill=False, padding=0
             )

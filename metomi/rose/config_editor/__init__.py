@@ -723,7 +723,7 @@ META_PROP_WIDGET = "widget[rose-config-edit]"
 META_PROP_WIDGET_SUB_NS = "widget[rose-config-edit:sub-ns]"
 
 # Miscellaneous
-COPYRIGHT = """Copyright (C) 2012-2024 British Crown (Met Office) & Contributors.
+COPYRIGHT = """Crown Copyright (C) 2012-2024 (Met Office) & Contributors.
        For full terms of use and licenses visit the Rose link above."""
 ABOUT_TEXT = "GUI interface to edit rose suites."
 CREDIT = (

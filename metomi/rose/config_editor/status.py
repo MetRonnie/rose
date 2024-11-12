@@ -72,7 +72,11 @@ class StatusReporter(metomi.rose.reporter.Reporter):
     def report_load_event(
         self, text, no_progress=False, new_total_events=None
     ):
-        """Report a load-related event (to metomi.rose.gtk.util.SplashScreen)."""
+        """Report a load-related event
+        (to metomi.rose.gtk.util.SplashScreen).
+
+        """
+
         event = metomi.rose.reporter.Event(
             text,
             kind=self.EVENT_KIND_LOAD,

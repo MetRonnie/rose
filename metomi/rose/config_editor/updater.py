@@ -89,8 +89,7 @@ class Updater(object):
                     if save_var.to_hashable() != var.to_hashable():
                         # Variable has changed in some form.
                         return (
-                            metomi.rose.config_editor
-                            .TREE_PANEL_TIP_CHANGED_VARS
+                            metomi.rose.config_editor.TREE_PANEL_TIP_CHANGED_VARS  # noqa: E501
                         )
                     save_var_map.pop(var_id)
         if save_var_map:
@@ -108,8 +107,7 @@ class Updater(object):
                 if sect_data is not None and save_sect_data is not None:
                     if sect_data.to_hashable() != save_sect_data.to_hashable():
                         return (
-                            metomi.rose.config_editor
-                            .TREE_PANEL_TIP_CHANGED_SECTIONS
+                            metomi.rose.config_editor.TREE_PANEL_TIP_CHANGED_SECTIONS  # noqa: E501
                         )
         return ""
 
@@ -504,10 +502,8 @@ class Updater(object):
                         # Doc table: I_u -> E -> compulsory
                         sect_data.error.update(
                             {
-                                metomi.rose.config_editor
-                                .WARNING_TYPE_USER_IGNORED: (
-                                    metomi.rose.config_editor
-                                    .WARNING_NOT_USER_IGNORABLE
+                                metomi.rose.config_editor.WARNING_TYPE_USER_IGNORED: (  # noqa: E501
+                                    metomi.rose.config_editor.WARNING_NOT_USER_IGNORABLE  # noqa: E501
                                 )
                             }
                         )
@@ -566,10 +562,8 @@ class Updater(object):
                         # Doc table: I_u -> E -> compulsory
                         var.error.update(
                             {
-                                metomi.rose.config_editor
-                                .WARNING_TYPE_USER_IGNORED: (
-                                    metomi.rose.config_editor
-                                    .WARNING_NOT_USER_IGNORABLE
+                                metomi.rose.config_editor.WARNING_TYPE_USER_IGNORED: (  # noqa: E501
+                                    metomi.rose.config_editor.WARNING_NOT_USER_IGNORABLE  # noqa: E501
                                 )
                             }
                         )

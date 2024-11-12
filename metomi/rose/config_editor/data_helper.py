@@ -103,7 +103,7 @@ class ConfigDataHelper(object):
             sect, opt, save, skip_latent=not latent
         )
 
-    # ----------------- Data model helper functions ------------------------------
+    # ----------------- Data model helper functions ---------------------------
 
     def get_data_for_namespace(self, ns, from_saved=False):
         """Return a list of vars and a list of latent vars for this ns."""

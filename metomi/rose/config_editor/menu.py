@@ -22,7 +22,6 @@ import ast
 import inspect
 import os
 import shlex
-import subprocess
 import sys
 import traceback
 
@@ -568,7 +567,7 @@ class MainMenuHandler(object):
             method_name=metomi.rose.macro.VALIDATE_METHOD, configs_updated=True
         )
         if num_errors:
-            text = metomi.rose.config_editor.EVENT_MACRO_VALIDATE_CHECK_ALL.format(
+            text = metomi.rose.config_editor.EVENT_MACRO_VALIDATE_CHECK_ALL.format(  # noqa: E501
                 num_errors
             )
             kind = self.reporter.KIND_ERR
@@ -852,7 +851,7 @@ class MainMenuHandler(object):
                         macro_fullname = ".".join(
                             [module.__name__, obj_name, method_name]
                         )
-                        err_text = metomi.rose.config_editor.ERROR_RUN_MACRO_TITLE.format(
+                        err_text = metomi.rose.config_editor.ERROR_RUN_MACRO_TITLE.format(  # noqa: E501
                             macro_fullname
                         )
                         try:

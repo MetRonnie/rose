@@ -373,7 +373,7 @@ class MainController(object):
 
         self.performing_undo = False
 
-    # ----------------- Setting up main component functions ----------------------
+    # ----------------- Setting up main component functions -------------------
 
     def generate_toolbar(self):
         """Link in the toolbar functionality."""
@@ -791,7 +791,7 @@ class MainController(object):
             metomi.rose.config_editor.SHOULD_SHOW_STATUS_BAR
         )
 
-    # ----------------- Page manipulation functions ------------------------------
+    # ----------------- Page manipulation functions ---------------------------
 
     def handle_load_all(self, *args):
         """Handle a request to load all preview configurations."""
@@ -1258,7 +1258,7 @@ class MainController(object):
                     else:
                         self.orphan_pages.remove(page)
 
-    # ----------------- Update functions -----------------------------------------
+    # ----------------- Update functions --------------------------------------
 
     def reload_namespace_tree(self, *args, **kwargs):
         """Redraw the navigation namespace tree."""
@@ -1288,7 +1288,7 @@ class MainController(object):
         """Placeholder for updater function of the same name."""
         self.updater.update_ns_sub_data(*args, **kwargs)
 
-    # ----------------- Page viewer function -------------------------------------
+    # ----------------- Page viewer function ----------------------------------
 
     def view_page(self, page_id, var_id=None):
         """Set focus by namespace (page_id), and optionally by var key."""
@@ -1322,7 +1322,7 @@ class MainController(object):
         self.set_current_page_indicator(page_id)
         return page
 
-    # ----------------- Primary menu functions -----------------------------------
+    # ----------------- Primary menu functions --------------------------------
 
     def load_from_file(self, somewidget=None):
         """Open a standard dialogue and load a config file, if selected."""
@@ -1469,7 +1469,7 @@ class MainController(object):
             return_dict.update({config_name: config})
         return return_dict
 
-    # ----------------- Secondary Menu/Dialog handling functions -----------------
+    # ----------------- Secondary Menu/Dialog handling functions --------------
 
     def apply_macro_transform(self, *args, **kwargs):
         """Placeholder for updater module function."""
@@ -1788,7 +1788,7 @@ class MainController(object):
             self.data.opt_meta_paths = paths
             self.refresh_metadata()
 
-    # ----------------- Data-intensive menu functions / utilities ----------------
+    # ----------------- Data-intensive menu functions / utilities -------------
 
     def _launch_find(self, *args):
         """Get the find expression from a dialog."""

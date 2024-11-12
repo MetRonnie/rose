@@ -483,7 +483,11 @@ class ConfigDataManager(object):
             self.reload_ns_tree_func()
 
     def load_config_file(self, config_path):
-        """Return two copies of the metomi.rose.config.ConfigNode at config_path."""
+        """Return two copies of the
+        metomi.rose.config.ConfigNode at config_path.
+
+        """
+
         try:
             config = metomi.rose.config.load(config_path)
         except metomi.rose.config.ConfigSyntaxError as exc:
@@ -1187,7 +1191,7 @@ class ConfigDataManager(object):
                         if node_is_compulsory:
                             # Doc table: I_u -> I_t -> compulsory
                             key = (
-                                metomi.rose.config_editor.WARNING_TYPE_USER_IGNORED
+                                metomi.rose.config_editor.WARNING_TYPE_USER_IGNORED  # noqa: E501
                             )
                             val = getattr(
                                 metomi.rose.config_editor,
@@ -1205,7 +1209,7 @@ class ConfigDataManager(object):
                             node_inst.ignored_reason.update(
                                 {
                                     metomi.rose.variable.IGNORED_BY_SYSTEM: (
-                                        metomi.rose.config_editor.IGNORED_STATUS_CONFIG
+                                        metomi.rose.config_editor.IGNORED_STATUS_CONFIG  # noqa: E501
                                     )
                                 }
                             )
@@ -1213,8 +1217,8 @@ class ConfigDataManager(object):
                             # Flag an error for real settings.
                             node_inst.error.update(
                                 {
-                                    metomi.rose.config_editor.WARNING_TYPE_ENABLED: (
-                                        metomi.rose.config_editor.WARNING_NOT_IGNORED
+                                    metomi.rose.config_editor.WARNING_TYPE_ENABLED: (  # noqa: E501
+                                        metomi.rose.config_editor.WARNING_NOT_IGNORED  # noqa: E501
                                         + help_str
                                     )
                                 }

@@ -465,7 +465,7 @@ class NavPanelHandler(object):
                         (
                             action_name,
                             Gtk.STOCK_ADD,
-                            metomi.rose.config_editor.TREE_PANEL_ADD_SECTION.format(
+                            metomi.rose.config_editor.TREE_PANEL_ADD_SECTION.format(  # noqa: E501
                                 section.replace("_", "__")
                             ),
                         )

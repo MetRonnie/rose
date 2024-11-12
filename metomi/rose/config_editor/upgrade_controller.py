@@ -31,6 +31,8 @@ import metomi.rose.gtk.util
 import metomi.rose.macro
 import metomi.rose.upgrade
 
+from metomi.rose.macros.trigger import TriggerMacro
+
 
 class UpgradeController(object):
     """Configure the upgrade of configurations."""
@@ -211,7 +213,7 @@ class UpgradeController(object):
                         config_type=metomi.rose.SUB_CONFIG_NAME,
                         ignore_meta_error=True,
                     )
-                    trig_macro = metomi.rose.macros.trigger.TriggerMacro()
+                    trig_macro = TriggerMacro()
                     macro_config = copy.deepcopy(new_config)
                     macro_id = (
                         metomi.rose.upgrade.MACRO_UPGRADE_TRIGGER_NAME
@@ -224,9 +226,7 @@ class UpgradeController(object):
                         (
                             new_trig_config,
                             trig_change_list,
-                        ) = metomi.rose.macros.trigger.TriggerMacro().transform(
-                            macro_config, meta_config
-                        )
+                        ) = TriggerMacro().transform(macro_config, meta_config)
                         handle_transform_func(
                             config_name,
                             macro_id,

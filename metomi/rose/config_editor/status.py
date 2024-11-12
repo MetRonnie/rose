@@ -40,8 +40,9 @@ class StatusReporter(metomi.rose.reporter.Reporter):
     instance (or have the same interface to update and stop methods).
 
     status_bar_update_func must be a function that accepts a
-    metomi.rose.reporter.Event, a metomi.rose.reporter kind-of-event string, and a
-    level of importance/verbosity. See metomi.rose.reporter for more details.
+    metomi.rose.reporter.Event, a metomi.rose.reporter kind-of-event string,
+    and a level of importance/verbosity.
+    See metomi.rose.reporter for more details.
 
     """
 

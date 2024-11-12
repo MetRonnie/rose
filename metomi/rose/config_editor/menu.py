@@ -36,7 +36,6 @@ import metomi.rose.config_editor
 import metomi.rose.config_editor.upgrade_controller
 import metomi.rose.external
 import metomi.rose.gtk.dialog
-import metomi.rose.gtk.run
 import metomi.rose.macro
 import metomi.rose.macros
 import metomi.rose.popen
@@ -1203,32 +1202,6 @@ class MainMenuHandler(object):
         except metomi.rose.popen.RosePopenError as exc:
             metomi.rose.gtk.dialog.run_exception_dialog(exc)
 
-    def launch_scheduler(self, *args):
-        """Run the scheduler for a suite open in config edit."""
-        this_id = self.data.top_level_name
-        scontrol = metomi.rose.suite_control.SuiteControl()
-        if scontrol.suite_engine_proc.is_suite_registered(this_id):
-            try:
-                return scontrol.gcontrol(this_id)
-            except metomi.rose.suite_control.SuiteNotRunningError as err:
-                msg = metomi.rose.config_editor.DIALOG_TEXT_SUITE_NOT_RUNNING.format(
-                    str(err)
-                )
-                return metomi.rose.gtk.dialog.run_dialog(
-                    metomi.rose.gtk.dialog.DIALOG_TYPE_ERROR,
-                    msg,
-                    metomi.rose.config_editor.DIALOG_TITLE_SUITE_NOT_RUNNING,
-                )
-        else:
-            msg = metomi.rose.config_editor.DIALOG_TEXT_UNREGISTERED_SUITE.format(
-                this_id
-            )
-            return metomi.rose.gtk.dialog.run_dialog(
-                metomi.rose.gtk.dialog.DIALOG_TYPE_ERROR,
-                msg,
-                metomi.rose.config_editor.DIALOG_TITLE_UNREGISTERED_SUITE,
-            )
-
     def launch_terminal(self):
         # Handle a launch terminal request.
         try:
@@ -1251,34 +1224,6 @@ class MainMenuHandler(object):
                 ),
                 metomi.rose.config_editor.DIALOG_TITLE_ERROR,
             )
-
-    def get_run_suite_args(self, *args):
-        """Ask the user for custom arguments to suite run."""
-        help_cmds = shlex.split(
-            metomi.rose.config_editor.LAUNCH_SUITE_RUN_HELP
-        )
-        help_text = subprocess.Popen(
-            help_cmds, stdout=subprocess.PIPE
-        ).communicate()[0]
-        metomi.rose.gtk.dialog.run_command_arg_dialog(
-            metomi.rose.config_editor.LAUNCH_SUITE_RUN,
-            help_text,
-            self.run_suite_check_args,
-        )
-
-    def run_suite_check_args(self, args):
-        if args is None:
-            return False
-        self.run_suite(args)
-
-    def run_suite(self, args=None, **kwargs):
-        """Run the suite, if possible."""
-        if not isinstance(args, list):
-            args = []
-        for key, value in list(kwargs.items()):
-            args.extend([key, value])
-        metomi.rose.gtk.run.run_suite(*args)
-        return False
 
     def transform_default(self, only_this_config=None):
         """Run the Rose built-in transformer macros."""

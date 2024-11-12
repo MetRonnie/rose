@@ -350,15 +350,18 @@ class BaseSummaryDataPanel(Gtk.Box):
             return None
         if metomi.rose.variable.IGNORED_BY_SYSTEM in node_data.ignored_reason:
             text += (
-                metomi.rose.config_editor.SUMMARY_DATA_PANEL_IGNORED_SYST_MARKUP
+                metomi.rose.config_editor.
+                SUMMARY_DATA_PANEL_IGNORED_SYST_MARKUP
             )
         elif metomi.rose.variable.IGNORED_BY_USER in node_data.ignored_reason:
             text += (
-                metomi.rose.config_editor.SUMMARY_DATA_PANEL_IGNORED_USER_MARKUP
+                metomi.rose.config_editor.
+                SUMMARY_DATA_PANEL_IGNORED_USER_MARKUP
             )
         if metomi.rose.variable.IGNORED_BY_SECTION in node_data.ignored_reason:
             text += (
-                metomi.rose.config_editor.SUMMARY_DATA_PANEL_IGNORED_SECT_MARKUP
+                metomi.rose.config_editor.
+                SUMMARY_DATA_PANEL_IGNORED_SECT_MARKUP
             )
         if isinstance(node_data, metomi.rose.section.Section):
             # Modified status
@@ -480,7 +483,8 @@ class BaseSummaryDataPanel(Gtk.Box):
             Gtk.STOCK_NO, Gtk.IconSize.MENU
         )
         ign_menuitem_label = Gtk.Label(
-            label=metomi.rose.config_editor.SUMMARY_DATA_PANEL_MENU_IGNORE_MULTI
+            label=metomi.rose.config_editor.
+            SUMMARY_DATA_PANEL_MENU_IGNORE_MULTI
         )
         ign_menuitem = Gtk.MenuItem()
         ign_menuitem_box.pack_start(ign_menuitem_icon, False, False, 0)
@@ -498,7 +502,8 @@ class BaseSummaryDataPanel(Gtk.Box):
             Gtk.STOCK_YES, Gtk.IconSize.MENU
         )
         ign_menuitem_label = Gtk.Label(
-            label=metomi.rose.config_editor.SUMMARY_DATA_PANEL_MENU_ENABLE_MULTI
+            label=metomi.rose.config_editor.
+            SUMMARY_DATA_PANEL_MENU_ENABLE_MULTI
         )
         ign_menuitem = Gtk.MenuItem()
         ign_menuitem_box.pack_start(ign_menuitem_icon, False, False, 0)
@@ -516,7 +521,8 @@ class BaseSummaryDataPanel(Gtk.Box):
             Gtk.STOCK_REMOVE, Gtk.IconSize.MENU
         )
         rem_menuitem_label = Gtk.Label(
-            label=metomi.rose.config_editor.SUMMARY_DATA_PANEL_MENU_REMOVE_MULTI
+            label=metomi.rose.config_editor.
+            SUMMARY_DATA_PANEL_MENU_REMOVE_MULTI
         )
         rem_menuitem = Gtk.MenuItem()
         rem_menuitem_box.pack_start(rem_menuitem_icon, False, False, 0)
@@ -610,7 +616,8 @@ class BaseSummaryDataPanel(Gtk.Box):
                     Gtk.STOCK_COPY, Gtk.IconSize.MENU
                 )
                 copy_menuitem_label = Gtk.Label(
-                    label=metomi.rose.config_editor.SUMMARY_DATA_PANEL_MENU_COPY
+                    label=metomi.rose.config_editor.
+                    SUMMARY_DATA_PANEL_MENU_COPY
                 )
                 copy_menuitem = Gtk.MenuItem()
                 copy_menuitem_box.pack_start(
@@ -635,7 +642,8 @@ class BaseSummaryDataPanel(Gtk.Box):
                         Gtk.STOCK_YES, Gtk.IconSize.MENU
                     )
                     enab_menuitem_label = Gtk.Label(
-                        label=metomi.rose.config_editor.SUMMARY_DATA_PANEL_MENU_ENABLE
+                        label=metomi.rose.config_editor.
+                        SUMMARY_DATA_PANEL_MENU_ENABLE
                     )
                     enab_menuitem = Gtk.MenuItem()
                     enab_menuitem_box.pack_start(
@@ -663,7 +671,8 @@ class BaseSummaryDataPanel(Gtk.Box):
                         Gtk.STOCK_NO, Gtk.IconSize.MENU
                     )
                     ign_menuitem_label = Gtk.Label(
-                        label=metomi.rose.config_editor.SUMMARY_DATA_PANEL_MENU_IGNORE
+                        label=metomi.rose.config_editor.
+                        SUMMARY_DATA_PANEL_MENU_IGNORE
                     )
                     ign_menuitem = Gtk.MenuItem()
                     ign_menuitem_box.pack_start(
@@ -690,7 +699,8 @@ class BaseSummaryDataPanel(Gtk.Box):
                     Gtk.STOCK_REMOVE, Gtk.IconSize.MENU
                 )
                 rem_menuitem_label = Gtk.Label(
-                    label=metomi.rose.config_editor.SUMMARY_DATA_PANEL_MENU_REMOVE
+                    label=metomi.rose.config_editor.
+                    SUMMARY_DATA_PANEL_MENU_REMOVE
                 )
                 rem_menuitem = Gtk.MenuItem()
                 rem_menuitem_box.pack_start(rem_menuitem_icon, False, False, 0)
@@ -713,7 +723,8 @@ class BaseSummaryDataPanel(Gtk.Box):
                     Gtk.STOCK_NO, Gtk.IconSize.MENU
                 )
                 ign_menuitem_label = Gtk.Label(
-                    label=metomi.rose.config_editor.SUMMARY_DATA_PANEL_MENU_IGNORE
+                    label=metomi.rose.config_editor.
+                    SUMMARY_DATA_PANEL_MENU_IGNORE
                 )
                 ign_menuitem = Gtk.MenuItem()
                 ign_menuitem_box.pack_start(ign_menuitem_icon, False, False, 0)
@@ -735,7 +746,8 @@ class BaseSummaryDataPanel(Gtk.Box):
                     Gtk.STOCK_YES, Gtk.IconSize.MENU
                 )
                 ign_menuitem_label = Gtk.Label(
-                    label=metomi.rose.config_editor.SUMMARY_DATA_PANEL_MENU_ENABLE
+                    label=metomi.rose.config_editor.
+                    SUMMARY_DATA_PANEL_MENU_ENABLE
                 )
                 ign_menuitem = Gtk.MenuItem()
                 ign_menuitem_box.pack_start(ign_menuitem_icon, False, False, 0)
@@ -757,7 +769,8 @@ class BaseSummaryDataPanel(Gtk.Box):
                     Gtk.STOCK_REMOVE, Gtk.IconSize.MENU
                 )
                 rem_menuitem_label = Gtk.Label(
-                    label=metomi.rose.config_editor.SUMMARY_DATA_PANEL_MENU_REMOVE
+                    label=metomi.rose.config_editor.
+                    SUMMARY_DATA_PANEL_MENU_REMOVE
                 )
                 rem_menuitem = Gtk.MenuItem()
                 rem_menuitem_box.pack_start(rem_menuitem_icon, False, False, 0)

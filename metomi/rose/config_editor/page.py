@@ -483,7 +483,7 @@ class ConfigPage(Gtk.Box):
         info_container.show()
         if button_list is None or label_list is None or info is None:
             button_list, label_list, info = self._get_page_info_widgets()
-        self._last_info_labels = [l.get_text() for l in label_list]
+        self._last_info_labels = [label.get_text() for label in label_list]
         for button, label in zip(button_list, label_list):
             var_hbox = Gtk.Box(
                 orientation=Gtk.Orientation.HORIZONTAL, homogeneous=False
@@ -1338,7 +1338,8 @@ class ConfigPage(Gtk.Box):
                 error_button = metomi.rose.gtk.util.CustomButton(
                     stock_id=Gtk.STOCK_DIALOG_WARNING,
                     as_tool=True,
-                    tip_text=metomi.rose.config_editor.ERROR_ORPHAN_SECTION_TIP,
+                    tip_text=metomi.rose.config_editor.
+                    ERROR_ORPHAN_SECTION_TIP,
                 )
                 error_label = Gtk.Label()
                 info = metomi.rose.config_editor.ERROR_ORPHAN_SECTION.format(

@@ -28,7 +28,6 @@ from . import array
 from . import booltoggle
 from . import character
 from . import combobox
-from . import files
 from . import intspin
 from . import meta
 from . import radiobuttons

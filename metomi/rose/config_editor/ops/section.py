@@ -169,7 +169,7 @@ class SectionOperations(object):
             ):
                 metomi.rose.gtk.dialog.run_dialog(
                     metomi.rose.gtk.dialog.DIALOG_TYPE_ERROR,
-                    metomi.rose.config_editor.WARNING_CANNOT_USER_IGNORE.format(
+                    metomi.rose.config_editor.WARNING_CANNOT_USER_IGNORE.format(  # nopa: E501
                         section
                     ),
                     metomi.rose.config_editor.WARNING_CANNOT_IGNORE_TITLE,

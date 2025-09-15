@@ -25,7 +25,7 @@ import socket
 import sqlite3
 import tarfile
 from time import sleep
-from typing import Any, List, Optional, Tuple
+from typing import Iterable, List, Optional, Tuple
 from uuid import uuid4
 
 from metomi.rose.fs_util import FileSystemEvent
@@ -68,7 +68,7 @@ class CylcProcessor(SuiteEngineProcessor):
         return os.path.join(cls.SUITE_DIR_REL_ROOT, suite_name, *paths)
 
     def get_suite_jobs_auths(
-        self, suite_name: str, cycle_name_tuples: Optional[Tuple[Any]] = None
+        self, suite_name: str, cycle_name_tuples: Iterable[Tuple[str, str]]
     ) -> List[str]:
         """Get hosts of jobs from a Cylc workflow database.
 
@@ -79,19 +79,14 @@ class CylcProcessor(SuiteEngineProcessor):
         from cylc.flow.platforms import get_host_from_platform
         from cylc.rose.platform_utils import get_platforms_from_task_jobs
 
-        task_platforms = {}
-        if cycle_name_tuples is not None:
-            for cycle, name in cycle_name_tuples:
-                new_platforms = get_platforms_from_task_jobs(suite_name, cycle)
-                task_platforms[cycle] = new_platforms
-
         # For each platform get a list of hosts.
-        hosts = []
-        for cycle, tasks in task_platforms.items():
-            for platform in tasks.values():
-                hosts.append(get_host_from_platform(platform))
-        hosts = list(set(hosts))
-        return hosts
+        return list({
+            get_host_from_platform(platform)
+            for cycle, _name in cycle_name_tuples
+            for platform in get_platforms_from_task_jobs(
+                suite_name, cycle
+            ).values()
+        })
 
     def get_task_auth(
         self, suite_name: str, task_name: str
@@ -244,14 +239,7 @@ class CylcProcessor(SuiteEngineProcessor):
         self.fs_util.touch(uuid_file_name)
         try:
             auths_filters = []  # [(auths, includes, excludes), ...]
-            if "*" in items:
-                auths = self.get_suite_jobs_auths(suite_name)
-                if auths:
-                    # A shuffle here should allow the load for doing "rm -rf"
-                    # to be shared between job hosts who share a file system.
-                    shuffle(auths)
-                    auths_filters.append((auths, [], []))
-            else:
+            if "*" not in items:
                 for item in items:
                     cycle, name = self._parse_task_cycle_id(item)
                     if cycle is not None:

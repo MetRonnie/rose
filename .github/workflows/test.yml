@@ -45,67 +45,18 @@ env:
   PIP_PROGRESS_BAR: off
 
 jobs:
-  lint:
-    strategy:
-      matrix:
-        python-version: ['3.12']
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          ref: ${{ inputs.rose_ref || github.sha }}
-
-      - name: Configure Python
-        uses: mamba-org/setup-micromamba@v3
-        with:
-          cache-environment: true
-          post-cleanup: 'all'
-          environment-name: rose-lint
-          create-args: >-
-            python=${{ matrix.python-version }}
-            bash
-            shellcheck
-
-      - name: Install Rose
-        run: |
-          pip install ."[lint]"
-          yarn install
-
-      - name: Flake8
-        run: flake8
-
-      - name: Shellchecker
-        run: etc/bin/shellchecker
-
-      - name: ESLint
-        run: yarn run lint
-
-      - name: MyPy
-        run: |
-          mypy
-
-      - name: Towncrier - draft changelog
-        uses: cylc/release-actions/towncrier-draft@v1
-
   test:
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: ${{ contains(matrix.os, 'macos') && 30 || 20 }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
-        os: ['ubuntu-latest']
         python-version: ['3.12', '3']
-        include:
-          - os: 'macos-latest'
-            python-version: '3.12'
 
     steps:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ inputs.rose_ref || github.sha }}
           path: rose
 
       - name: Configure Python
@@ -127,21 +78,6 @@ jobs:
             gtk3>=3.24.43
             python-ldap
 
-      - name: Patch DNS
-        uses: cylc/release-actions/patch-dns@v1
-
-      - name: Brew Install
-        if: startsWith(matrix.os, 'macos')
-        run: |
-          # install system deps
-          brew install subversion
-
-          # supress a mac os error
-          # see NOTE in t/rosie-lookup/00-basic.t
-          cat >> "$HOME/.bashrc" <<__HERE__
-          export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-          __HERE__
-
       - name: Configure git  # Configure Git for Git dependent tests.
         uses: cylc/release-actions/configure-git@v1
 
@@ -150,30 +86,22 @@ jobs:
         run: |
           yarn install
 
-      - name: Install
-        uses: cylc/release-actions/install-cylc-components@v1
-        with:
-          branch: ${{ inputs.rose_ref || '' }}
-          cylc_flow: true
-          cylc_flow_opts: ''
-          cylc_flow_repo: ${{ inputs.cylc_flow_repo || 'cylc/cylc-flow' }}
-          cylc_flow_tag: ${{ inputs.cylc_flow_tag }}
-          cylc_rose: true
-          cylc_rose_opts: ''
-          cylc_rose_repo: ${{ inputs.cylc_rose_repo || 'cylc/cylc-rose' }}
-          cylc_rose_tag: ${{ inputs.cylc_rose_tag }}
-          local_source: ./rose[tests,docs,rose-edit,graph,rosa,disco,ldap]
+      - run: |
+          pip install -e ./rose[tests,docs,rose-edit,graph,rosa,disco,ldap] \
+          metomi-isodatetime@git+https://github.com/metomi/isodatetime \
+          cylc-flow@git+https://github.com/MetRonnie/cylc-flow@isodatetime \
+          cylc-rose@git+https://github.com/cylc/cylc-rose
+
+      - run: pip list
 
       - name: Checkout FCM
-        if: startsWith(matrix.os, 'ubuntu')
         uses: actions/checkout@v7
         with:
-          repository: ${{ inputs.fcm_repo || 'metomi/fcm' }}
-          ref: ${{ inputs.fcm_ref || 'master' }}
+          repository: 'metomi/fcm'
+          ref: 'master'
           path: 'fcm'
 
       - name: Install FCM
-        if: startsWith(matrix.os, 'ubuntu')
         run: |
           # install FCM deps
           sudo apt-get update
@@ -199,7 +127,7 @@ jobs:
           pytest
 
       - name: Functional Tests
-        timeout-minutes: ${{ contains(matrix.os, 'macos') && 20 || 10 }}
+        timeout-minutes: 15
         id: functest
         working-directory: rose
         env:
@@ -210,7 +138,7 @@ jobs:
 
       - name: Re-Run Fails
         if: failure() && steps.functest.outcome == 'failure'
-        timeout-minutes: ${{ contains(matrix.os, 'macos') && 10 || 5 }}
+        timeout-minutes: 5
         working-directory: rose
         env:
           OBJC_DISABLE_INITIALIZE_FORK_SAFETY: YES
@@ -223,61 +151,5 @@ jobs:
         if: failure() && steps.functest.outcome == 'failure'
         uses: actions/upload-artifact@v7
         with:
-          name: cylc-run ${{ matrix.os }} py-${{ matrix.python-version }}
+          name: cylc-run py-${{ matrix.python-version }}
           path: ~/cylc-run/
-
-  docs:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    strategy:
-      matrix:
-        python-version: ['3']
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          ref: ${{ inputs.rose_ref || github.sha }}
-
-      - name: Configure Python
-        uses: mamba-org/setup-micromamba@v3
-        with:
-          cache-environment: true
-          post-cleanup: 'all'
-          environment-name: rose-docs
-          create-args: >-
-            python=${{ matrix.python-version }}
-            bash
-            pygraphviz
-            pygobject>=3.50.0
-            gtk3>=3.24.43
-
-      - name: Install
-        uses: cylc/release-actions/install-cylc-components@v1
-        with:
-          branch: ${{ inputs.rose_ref || '' }}
-          cylc_flow: true
-          cylc_flow_opts: ''
-          cylc_flow_repo: ${{ inputs.cylc_flow_repo || 'cylc/cylc-flow' }}
-          cylc_flow_tag: ${{ inputs.cylc_flow_tag }}
-          cylc_rose: true
-          cylc_rose_opts: ''
-          cylc_rose_repo: ${{ inputs.cylc_rose_repo || 'cylc/cylc-rose' }}
-          cylc_rose_tag: ${{ inputs.cylc_rose_tag }}
-          local_source: .[docs,graph,edit,disco]
-
-      - name: build (html)
-        run: |
-          make -C sphinx/ html SPHINXOPTS='-Wn'
-
-      # - name: build (slides)
-      #   run: |
-      #     make -C sphinx/ slides SPHINXOPTS='-Wn'
-
-      - name: build (linkcheck)
-        run: |
-          make -C sphinx/ linkcheck SPHINXOPTS='-Wn'
-
-      - name: debug
-        if: failure()
-        run: |
-          cat /tmp/sphinx-err* >&2 || true
